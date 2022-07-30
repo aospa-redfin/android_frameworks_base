@@ -45,6 +45,7 @@ import android.os.SystemClock;
 import android.os.TestLooperManager;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.os.SystemProperties;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
 import android.view.Display;
@@ -67,6 +68,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+
+import com.android.internal.util.custom.MeizuPropsUtils;
 
 /**
  * Base class for implementing application instrumentation code.  When running
@@ -1284,6 +1287,7 @@ public class Instrumentation {
                 .instantiateApplication(cl, className);
         app.attach(context);
         PropImitationHooks.setProps(context);
+        MeizuPropsUtils.setProps(context);
         return app;
     }
     
@@ -1302,6 +1306,7 @@ public class Instrumentation {
         Application app = (Application)clazz.newInstance();
         app.attach(context);
         PropImitationHooks.setProps(context);
+        MeizuPropsUtils.setProps(context);
         return app;
     }
 
