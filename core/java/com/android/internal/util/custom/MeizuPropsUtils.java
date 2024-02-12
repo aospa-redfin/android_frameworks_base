@@ -15,11 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.internal.util.custom;
+package com.android.internal.util;
 
-import android.app.Application;
 import android.os.Build;
-import android.os.SystemProperties;
 import android.util.Log;
 
 import java.util.Arrays;
@@ -31,8 +29,6 @@ public class MeizuPropsUtils {
 
     private static final String TAG = MeizuPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
-
-    private static final String DISGUISE_PROPS_FOR_MUSIC_APP = "persist.sys.disguise_props_for_music_app";
 
     private static final Map<String, Object> propsToChange;
 
@@ -57,12 +53,7 @@ public class MeizuPropsUtils {
         propsToChange.put("MODEL", "meizu 16th Plus");
     }
 
-    public static void setProps(Application app) {
-        if (!SystemProperties.getBoolean(DISGUISE_PROPS_FOR_MUSIC_APP, false)) {
-            return;
-        }
-
-        final String packageName = app.getPackageName();
+    public static void setProps(String packageName) {
         if (packageName == null){
             return;
         }

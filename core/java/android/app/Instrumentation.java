@@ -102,6 +102,8 @@ public class Instrumentation {
 
     private static final boolean VERBOSE = Log.isLoggable(TAG, Log.VERBOSE);
 
+    private static final String DISGUISE_PROPS_FOR_MUSIC_APP = "persist.sys.disguise_props_for_music_app";
+
     /**
      * @hide
      */
@@ -1287,7 +1289,9 @@ public class Instrumentation {
                 .instantiateApplication(cl, className);
         app.attach(context);
         PropImitationHooks.setProps(context);
-        MeizuPropsUtils.setProps(context);
+        if (SystemProperties.getBoolean(DISGUISE_PROPS_FOR_MUSIC_APP, false)) {
+            MeizuPropsUtils.setProps(packageName);
+        }
         return app;
     }
     
@@ -1306,7 +1310,9 @@ public class Instrumentation {
         Application app = (Application)clazz.newInstance();
         app.attach(context);
         PropImitationHooks.setProps(context);
-        MeizuPropsUtils.setProps(context);
+        if (SystemProperties.getBoolean(DISGUISE_PROPS_FOR_MUSIC_APP, false)) {
+            MeizuPropsUtils.setProps(packageName);
+        }
         return app;
     }
 
